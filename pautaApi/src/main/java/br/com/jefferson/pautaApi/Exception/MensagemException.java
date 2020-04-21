@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *
- * @author jepherson
+ * @author jefferson
  */
 public class MensagemException  {
 

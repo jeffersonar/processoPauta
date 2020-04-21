@@ -7,7 +7,7 @@ package br.com.jefferson.pautaApi.Exception;
 
 /**
  *
- * @author jepherson
+ * @author jefferson
  */
 public class GenericException {
  

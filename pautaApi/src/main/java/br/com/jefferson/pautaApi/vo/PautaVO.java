@@ -1,37 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.jefferson.pautaApi.vo;
 
 import br.com.jefferson.pautaApi.entity.Pauta;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
- * @author jepherson
+ * Objeto de Saida do endpoint
+ * @author jefferson
  */
 public class PautaVO {
 
     private Integer codePauta;
     
-    private Date dataCadastro;
+    private String dataCadastro;
     
     private String descricao;
     
-    private Date dataConclusao;
-
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    
     public PautaVO() {
     }
     
     public PautaVO(Pauta pauta) {
         this.codePauta = pauta.getIsnPauta();
-        this.dataCadastro = pauta.getDatCadastro();
-        this.dataConclusao = pauta.getDatConclusao();
+        this.dataCadastro = sdf.format(pauta.getDatCadastro());
         this.descricao = pauta.getDscPauta();
     }
 
@@ -43,14 +38,6 @@ public class PautaVO {
         this.codePauta = codePauta;
     }
 
-    public Date getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(Date dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
     public String getDescricao() {
         return descricao;
     }
@@ -59,14 +46,13 @@ public class PautaVO {
         this.descricao = descricao;
     }
 
-    public Date getDataConclusao() {
-        return dataConclusao;
+    public String getDataCadastro() {
+        return dataCadastro;
     }
 
-    public void setDataConclusao(Date dataConclusao) {
-        this.dataConclusao = dataConclusao;
+    public void setDataCadastro(String dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
-    
-    
+
     
 }
