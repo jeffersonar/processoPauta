@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author jefferson
  */
-@ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class NotFoundException extends RuntimeException{
-
-    public NotFoundException(String mensagem) {
+@ResponseStatus(code = HttpStatus.NO_CONTENT)
+public class NoContentException extends RuntimeException{
+    
+    public NoContentException(String mensagem){
         super(mensagem);
     }
-    
-    
     
 }

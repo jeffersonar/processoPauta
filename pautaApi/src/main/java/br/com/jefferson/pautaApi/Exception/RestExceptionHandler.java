@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 /**
  *
- * @author jepherson
+ * @author jefferson
  */
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
