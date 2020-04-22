@@ -16,7 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <url.user>https://user-info.herokuapp.com/users/{cpf}</url.user>
+        <url.user>https://user-info.herokuapp.com/users/</url.user>
     </properties>
 
     <dependencies>

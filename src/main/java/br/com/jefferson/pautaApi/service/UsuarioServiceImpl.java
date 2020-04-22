@@ -27,7 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         try {
             RestTemplate restTemplate = new RestTemplate();
 
-            UsuarioVO retorno = restTemplate.getForObject(url, UsuarioVO.class, cpf);
+            UsuarioVO retorno = restTemplate.getForObject(url.concat(cpf), UsuarioVO.class);
             return retorno;
 
         } catch (HttpClientErrorException ex) {
