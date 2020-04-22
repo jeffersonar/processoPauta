@@ -36,9 +36,10 @@ public class VotacaoController {
      * @return ResponseEntity<VotacaoVO>
      */
     @RequestMapping(method = RequestMethod.POST, path = "/{codeSessao}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<VotacaoVO> votar(@PathVariable(name = "codeSessao", required = true) Integer codesessao,
-            @RequestBody @Valid VotacaoDTO votacaoDto, HttpServletResponse response) {
-        VotacaoVO votacao = votacaoServiceImpl.votar(codesessao, votacaoDto);
+    public ResponseEntity<VotacaoVO> votar(@PathVariable(name = "codeSessao", required = true) Integer codeSessao,
+                                                                        @RequestBody @Valid VotacaoDTO votacaoDto, 
+                                                                                     HttpServletResponse response) {
+        VotacaoVO votacao = votacaoServiceImpl.votar(codeSessao, votacaoDto);
         return new ResponseEntity<>(votacao, HttpStatus.CREATED);
 
     }

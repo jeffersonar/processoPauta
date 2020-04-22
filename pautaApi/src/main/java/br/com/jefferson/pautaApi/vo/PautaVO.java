@@ -2,10 +2,6 @@ package br.com.jefferson.pautaApi.vo;
 
 import br.com.jefferson.pautaApi.entity.Pauta;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Objeto de Saida do endpoint
@@ -54,5 +50,9 @@ public class PautaVO {
         this.dataCadastro = dataCadastro;
     }
 
+    @Override
+    public String toString() {
+        return "PautaVO{" + "codePauta=" + codePauta + ", dataCadastro=" + dataCadastro + ", descricao=" + descricao + '}';
+    }
     
 }
