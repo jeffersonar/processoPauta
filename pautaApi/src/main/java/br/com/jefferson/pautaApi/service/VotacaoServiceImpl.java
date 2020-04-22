@@ -5,7 +5,9 @@ import br.com.jefferson.pautaApi.Exception.BadRequestException;
 import br.com.jefferson.pautaApi.Exception.NotFoundException;
 import br.com.jefferson.pautaApi.dto.VotacaoDTO;
 import br.com.jefferson.pautaApi.entity.Votacao;
+import br.com.jefferson.pautaApi.enuns.UsuarioStatusEnum;
 import br.com.jefferson.pautaApi.repository.VotacaoRepository;
+import br.com.jefferson.pautaApi.vo.UsuarioVO;
 import br.com.jefferson.pautaApi.vo.VotacaoVO;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class VotacaoServiceImpl implements VotacaoService {
 
     @Autowired
     private VotacaoRepository votacaoRepository;
+    
+    @Autowired
+    private UsuarioServiceImpl usuarioServiceImpl;
 
     /**
      * votar por pauta
@@ -55,7 +60,11 @@ public class VotacaoServiceImpl implements VotacaoService {
     @Override
     public void validar(VotacaoDTO votacaoDto) {
         if(!(votacaoDto.getVoto().trim().equals("Sim") || votacaoDto.getVoto().trim().equals("Não"))){
-            throw new BadRequestException("Voto inválido (entrada válida Sim/Não) ");
+            throw new BadRequestException("Voto inválido (entrada válida Sim/Não)");
+        }
+        UsuarioVO usuario = usuarioServiceImpl.validarCPF(votacaoDto.getCpf());
+        if(usuario.getStatus().equals(UsuarioStatusEnum.UNABLE_TO_VOTO.name())){
+            throw new NotFoundException("CPF invalido");
         }
     }
 

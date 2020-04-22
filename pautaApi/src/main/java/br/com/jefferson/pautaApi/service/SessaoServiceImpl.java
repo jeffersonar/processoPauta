@@ -15,71 +15,77 @@ import org.springframework.stereotype.Service;
 
 /**
  * Camada de regra de negocio
+ *
  * @author jefferson
  */
 @Service
-public class SessaoServiceImpl implements SessaoService{
+public class SessaoServiceImpl implements SessaoService {
 
     @Autowired
     private SessaoRepository sessaoRepository;
-    
+
     @Autowired
     private PautaServiceImpl pautaServiceImpl;
-    
+
     /**
      * Criar uma Sessão
+     *
      * @param sessaoDto
-     * @return 
+     * @return
      */
     @Override
     public SessaoVO criarSessao(SessaoDTO sessaoDto) {
         pautaServiceImpl.validar(sessaoDto.getCodePauta());
         Sessao sessaoValida = sessaoRepository.findByInsPauta(sessaoDto.getCodePauta());
-        if(sessaoValida!=null){
+        if (sessaoValida != null) {
             throw new NotFoundException("Já existe uma Sessao aberta para essa pauta");
         }
         GregorianCalendar datCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
         Sessao sessao = new Sessao();
         sessao.setInsPauta(sessaoDto.getCodePauta());
         sessao.setDatInicio(datCalendar.getTime());
-        if(sessaoDto.getMinutosPauta()!=null){
+        if (sessaoDto.getMinutosPauta() != null) {
             datCalendar.add(GregorianCalendar.MINUTE, sessaoDto.getMinutosPauta());
-        }else{
+        } else {
             datCalendar.add(GregorianCalendar.MINUTE, +1);
         }
         sessao.setDatFim(datCalendar.getTime());
         Sessao retorno = sessaoRepository.saveAndFlush(sessao);
         return new SessaoVO(retorno);
     }
-    
+
     /**
      * buscar Sessao por codeSessao
+     *
      * @param codeSessao
-     * @return 
+     * @return
      */
     @Override
     public SessaoVO getSessao(Integer codeSessao) {
         Optional<Sessao> sessao = sessaoRepository.findById(codeSessao);
+        validar(sessao);
         return new SessaoVO(sessao.get());
     }
 
     /**
      * validar sessão
-     * @param sessao 
+     *
+     * @param sessao
      */
     @Override
     public void validar(Optional<Sessao> sessao) {
         if (!sessao.isPresent()) {
             throw new NotFoundException("Code Sessao inválido");
         }
-        if(sessao.get().getDatFim()!=null && sessao.get().getDatFim().before(new Date())){
+        if (sessao.get().getDatFim() != null && sessao.get().getDatFim().before(new Date())) {
             throw new NotFoundException("Sessão de votação expirada");
         }
     }
 
     /**
      * validar Sessão
-     * @param idSessao 
+     *
+     * @param idSessao
      */
     @Override
     public void validar(Integer idSessao) {

@@ -33,8 +33,8 @@ public class PautaServiceImpl implements PautaService {
         Pauta pauta = new Pauta();
         pauta.setDatCadastro(new Date());
         pauta.setDscPauta(pautaDTO.getDescricao());
-        pauta = pautaRepository.saveAndFlush(pauta);
-        return new PautaVO(pauta);
+        Pauta retorno = pautaRepository.saveAndFlush(pauta);
+        return new PautaVO(retorno);
     }
 
     /**
@@ -45,7 +45,7 @@ public class PautaServiceImpl implements PautaService {
     @Override
     public PautaVO pesquisarPorCodigo(Integer codePauta) {
         Optional<Pauta> pauta = pautaRepository.findById(codePauta);
-        if(pauta.isPresent()){
+        if(!pauta.isPresent()){
             throw new NoContentException("Não existe pauta com esse code");
         }
         return new PautaVO(pauta.get());
